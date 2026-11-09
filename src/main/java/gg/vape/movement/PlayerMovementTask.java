@@ -36,13 +36,10 @@ public abstract class PlayerMovementTask {
             return;
         }
         boolean reachedTarget = this.hasReachedTarget();
-        if (reachedTarget) {
-            if (!this.targetReached) {
-                this.targetReached = true;
-            }
-            this.setCompleted(true);
-            return;
+        if (reachedTarget && !this.targetReached) {
+            this.targetReached = true;
         }
+        // TellyBridge uses this gate to keep movement active until landing.
         if (this.targetReached && (!this.waitForGroundAfterArrival || player.b$src$Z$fqlxe4())) {
             this.setCompleted(true);
         }

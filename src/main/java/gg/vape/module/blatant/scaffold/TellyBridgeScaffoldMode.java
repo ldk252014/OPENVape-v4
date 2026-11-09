@@ -197,7 +197,7 @@ extends SubModule<Scaffold> {
                 }
                 if (this.bridgeLevel == 0) {
                     float[] targetRotation = this.computeBridgeRotation(this.direction);
-                    this.scaffold.applyFixedRotation(targetRotation, this.scaffold.computeRotationSpeed(targetRotation));
+                    this.scaffold.applyFixedRotation(targetRotation, this.scaffold.computeRotationSpeed(targetRotation), true);
                     MovementInputHelper.setKeyPressed(this.sprintKey, true);
                     this.submitMovementTask(this.computeMovementTarget(true), false);
                     this.repeatLastPathPosition(1);
@@ -387,8 +387,6 @@ extends SubModule<Scaffold> {
         } else if (direction == 5) {
             yaw = 140.0;
         }
-        yaw += Math.random() < 0.5 ? Math.random() * -4.0 : Math.random() * 4.0;
-        pitch += Math.random() * -5.0;
         return new float[]{(float)yaw, (float)pitch};
     }
 
