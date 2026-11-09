@@ -149,19 +149,28 @@ extends Mod {
     }
 
     public void applyFixedRotation(float[] rotation, float speed) {
+        this.applyFixedRotation(rotation, speed, false);
+    }
+
+    public void applyFixedRotation(float[] rotation, float speed, boolean proportionalAxes) {
         if (this.rotationController instanceof PointRotationController) {
             this.releaseRotation();
         }
+        float maxSpeed = proportionalAxes ? 8.0f : 12.0f;
+        float tolerance = proportionalAxes ? 0.35f : 0.5f;
         if (this.rotationController == null) {
             this.rotationController = new FixedRotationController(rotation[0], rotation[1]);
-            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), 12.0f));
+            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), maxSpeed));
             this.rotationController.setClampStepToRemaining(true);
-            this.rotationController.setTolerance(0.5f);
+            this.rotationController.setTolerance(tolerance);
+            this.rotationController.setScaleAxesProportionally(proportionalAxes);
             this.rotationController.setLinearAcceleration(true);
             this.rotationController.setRetainAfterCompletion(true);
             RotationManager.INSTANCE.setController(this.rotationController);
         } else {
-            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), 12.0f));
+            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), maxSpeed));
+            this.rotationController.setTolerance(tolerance);
+            this.rotationController.setScaleAxesProportionally(proportionalAxes);
             this.rotationController.setTargetRotation(rotation[0], rotation[1]);
         }
     }
@@ -303,14 +312,17 @@ extends Mod {
         }
         if (this.rotationController == null) {
             this.rotationController = new ScaffoldPointRotationController(this, target[0], target[1], target[2], direction, placementPosition);
-            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), 12.0f));
+            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), 8.0f));
             this.rotationController.setClampStepToRemaining(true);
-            this.rotationController.setTolerance(0.0f);
+            this.rotationController.setTolerance(0.35f);
+            this.rotationController.setScaleAxesProportionally(true);
             this.rotationController.setRetainAfterCompletion(true);
             this.rotationController.setLinearAcceleration(true);
             RotationManager.INSTANCE.setController(this.rotationController);
         } else {
-            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), 12.0f));
+            this.rotationController.setSpeed(Math.min(Math.max(2.0f, speed), 8.0f));
+            this.rotationController.setTolerance(0.35f);
+            this.rotationController.setScaleAxesProportionally(true);
             ((PointRotationController)this.rotationController).setTarget(target[0], target[1], target[2]);
         }
     }

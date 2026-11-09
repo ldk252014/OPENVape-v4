@@ -15,7 +15,7 @@ plugins {
 }
 
 group = 'gg.vape.recovery'
-version = '4.21.49'
+version = '4.21.50'
 
 java {
     toolchain {
@@ -531,8 +531,8 @@ tasks.register('prepareInjectionBundle', Sync) {
         include 'Vape-v' + project.version + '.exe'
         include 'Vape-v4.21Native.dll'
     }
-    // 包内同时附中英两�?README：native/README.md（中文）�?native/README_EN.md�?
-    // 两份互相链接，相对链接在包目录里同样有效�?
+    // åååæ¶éä¸­è±ä¸¤ä»?READMEï¼native/README.mdï¼ä¸­æï¼ä¸?native/README_EN.mdï¼?
+    // ä¸¤ä»½äºç¸é¾æ¥ï¼ç¸å¯¹é¾æ¥å¨åç®å½éåæ ·ææã?
     from(file('native/README.md'))
     from(file('native/README_EN.md'))
     into(injectionBundleDirectory)
